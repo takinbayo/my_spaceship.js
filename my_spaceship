@@ -1,0 +1,66 @@
+Your ship simulator must take in a string of letters that represent a planned flight path for a given rocket ship.
+
+In a ship’s flight path there are only 3 valid options for movement; R for turning right, L for turning left and A for advancing.
+
+If, for example, you receive “RRALAA” as your flight path, you should interpret it as the following:
+Turn right, turn right, advance, turn left, advance, advance
+Once given this initial flight path, your program must return the x,y coordinates of a ship’s final destination as well as it’s orientation relative to the starting point.
+
+Orientation is represented as left, right, up or down.
+
+Space is infinite, so the x,y coordinates you return could be placed on a seemingly infinite grid and can be negative or positive values.
+
+So let's say an upward-facing rocket ship leaves its starting point of 0,0 and is given the flight path of “RRALAA”, its final location will be 2,-1 and it will be facing right.
+
+
+function my_spaceship(flightPath) { 
+  var orientation = ['up', 'right', 'down', 'left', 'up', 'right', 'down', 'left', 'up'];
+  var pos = 4;
+
+  let spaceship = {
+    x: 0,
+    y: 0,
+    direction: orientation[pos]   
+  }
+
+  if (flightPath === "") {
+    var result = "{x: " + spaceship.x + ", y: " + spaceship.y + ", direction: '" + spaceship.direction + "'}"; 
+    //console.log(result); 
+    return result;  
+
+  } else { 
+
+    for (var i = 0; i < flightPath.length; i++) { 
+      
+      if (flightPath[i] == "R") { 
+        pos += 1; 
+        spaceship.direction = orientation[pos]; 
+        
+      } else if (flightPath[i] == "L") {
+        pos -= 1;
+        spaceship.direction = orientation[pos];
+        
+      } else { 
+
+        if (spaceship.direction == "up") { 
+          spaceship.y = spaceship.y -= 1; 
+
+        } else if (spaceship.direction == "right") { 
+          spaceship.x = spaceship.x += 1;
+
+        } else if (spaceship.direction == "down") {
+          spaceship.y += 1;
+
+        } else if (spaceship.direction == "left") {
+          spaceship.x -= 1;
+          
+        }
+      }
+    }  
+  }
+  
+  var result = "{x: " + spaceship.x + ", y: " + spaceship.y + ", direction: '" + spaceship.direction + "'}"; 
+  //console.log(result);
+  return result; 
+  
+}
